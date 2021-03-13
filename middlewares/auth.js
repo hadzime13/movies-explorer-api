@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Forbidden } = require('../errors/index');
-const { forbiddenError } = require('../config/constants')
+const { forbiddenError } = require('../config/constants');
 const { JWT_SECRET } = require('../config/config');
 
 const auth = (req, res, next) => {

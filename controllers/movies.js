@@ -1,4 +1,6 @@
 const Movie = require('../models/movie');
+const { NotFound, Forbidden } = require('../errors/index');
+const { notFoundMovieError, forbiddenDeleteMovieError } = require('../config/constants');
 
 const getMovies = (req, res, next) => {
   Movie.find({})
@@ -36,25 +38,20 @@ const createMovie = (req, res, next) => {
     movieId,
   })
     .then((movie) => res.send(movie))
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
 };
 
 const deleteMovie = (req, res, next) => {
   const movieID = req.params.id;
   Movie.findById(movieID)
     .then((movie) => {
-      // if (!mongoose.isValidObjectId(cardID)) {
-      //   throw new BadRequest('Неверный формат ID карточки');
-      // }
-      // if (!card) {
-      //   throw new NotFound('Карточки с таким ID не существует');
-      // }
-      // if (String(card.owner) !== req.user._id) {
-      //   throw new Forbidden(
-      //     'В удалении карточки другого пользователя отказано',
-      //   );
-      // }
-      return Movie.findByIdAndRemove(movieID).then(() => res.send({ message: 'Фильм уcпешно удален' }));
+      if (!movie) {
+        throw new NotFound(notFoundMovieError);
+      }
+      if (String(movie.owner) !== req.user._id) {
+        throw new Forbidden(forbiddenDeleteMovieError);
+      }
+      return Movie.findByIdAndRemove(movieID).then(() => res.send({ message: 'Фильм успешно удален' }));
     })
     .catch((err) => next(err));
 };
