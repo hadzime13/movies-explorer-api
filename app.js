@@ -13,7 +13,7 @@ const { PORT, MONGO_URL } = require('./config/config');
 
 const app = express();
 
-app.use(helmet);
+app.use(helmet());
 app.use(limiter);
 
 mongoose.connect(MONGO_URL, {
