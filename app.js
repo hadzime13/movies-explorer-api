@@ -22,8 +22,9 @@ app.use(bodyParser.json());
 
 app.use(routes);
 
-
+app.use(errors());
 app.use(errorHandler);
+
 app.listen(PORT, () => {
   console.log(`Listening to ${PORT}`);
 });
