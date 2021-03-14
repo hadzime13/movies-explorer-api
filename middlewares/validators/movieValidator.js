@@ -55,16 +55,6 @@ const movieValidator = celebrate({
       .messages({
         'any.required': 'Ссылка на миниатюру - обязательное поле',
       }),
-    owner: Joi.string().required()
-      .custom((value, helper) => {
-        if (validator.isMongoId(value)) {
-          return value;
-        }
-        return helper.message('Невалидный ID пользователя');
-      })
-      .messages({
-        'any.required': 'Владелец - обязательное поле',
-      }),
     movieId: Joi.number().required()
       .messages({
         'number.base': 'ID должен быть числом',

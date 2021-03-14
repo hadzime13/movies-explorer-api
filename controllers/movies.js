@@ -20,9 +20,10 @@ const createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    owner,
     movieId,
   } = req.body;
+  const owner = req.user._id;
+  console.log(owner);
   Movie.create({
     country,
     director,
