@@ -12,7 +12,10 @@ node_modules
 # Optional REPL history
 .DS_Store
 .idea
-.vscode 
+.vscode
 
 #shit
 .eslintcache
+
+#env
+.env
